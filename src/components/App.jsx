@@ -9,16 +9,6 @@ import Recipes from './Recipes'
 
 class App extends Component {
 
-  // handleClick = e => {
-  //   console.log("button clicked!");
-  //   e.preventDefault();
-  //   fetch(backendurl+"/categories")
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     console.log(data)
-  //   })
-  // }
-
   render() {
     return (
       <React.Fragment>   

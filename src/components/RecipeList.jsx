@@ -4,7 +4,7 @@ import { Segment, Card, Image } from "semantic-ui-react";
 
 class RecipeList extends Component {
   render() {
-    console.log("this.props.recipes: ", this.props.recipes);
+    // console.log("this.props.recipes: ", this.props.recipes);
 
     return (
       <React.Fragment>
