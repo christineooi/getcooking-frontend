@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import '../App.css';
 import RecipeList from "./RecipeList";
-// import { f2f_api_key } from '../config2';
-import { Form, Input, Button} from "semantic-ui-react"
+import { Form, Input, Button} from "semantic-ui-react";
 
 class Recipes extends Component {
     state = {
