@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import '../App.css';
 import RecipeList from "./RecipeList";
-import { f2f_api_key } from '../config2';
+// import { f2f_api_key } from '../config2';
 import { Form, Input, Button} from "semantic-ui-react"
 
 class Recipes extends Component {
@@ -15,12 +15,10 @@ class Recipes extends Component {
         const searchKeyword = e.target.elements.keywordSearch.value;
         console.log("searchKeyword: ", searchKeyword);
         e.preventDefault();
-        let api_key = null;
-        if (process.env.NODE_ENV !== 'production') {
-            api_key = f2f_api_key;
-        } else {
-            api_key = process.env.F2F_API_KEY;
-        }
+        let config2 = null;
+        config2 = process.env.NODE_ENV !== 'production' ? (require('../config2')) : null;
+        let api_key = process.env.F2F_API_KEY || config2.f2f_api_key;
+        
         fetch(`https://cors-anywhere.herokuapp.com/http://food2fork.com/api/search?key=${api_key}&q=${searchKeyword}&sort=r&count=20`)
         .then(response => response.json())
         .then(data => {
