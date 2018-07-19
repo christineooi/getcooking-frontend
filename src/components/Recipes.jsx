@@ -14,9 +14,8 @@ class Recipes extends Component {
         const searchKeyword = e.target.elements.keywordSearch.value;
         console.log("searchKeyword: ", searchKeyword);
         e.preventDefault();
-        let config2 = null;
-        config2 = process.env.NODE_ENV !== 'production' ? (require('../config2')) : null;
-        let api_key = process.env.F2F_API_KEY || config2.f2f_api_key;
+
+        let api_key = process.env.NODE_ENV !== 'production' ? process.env.REACT_APP_F2F_API_KEY : process.env.F2F_API_KEY;
         
         fetch(`https://cors-anywhere.herokuapp.com/http://food2fork.com/api/search?key=${api_key}&q=${searchKeyword}&sort=r&count=20`)
         .then(response => response.json())
