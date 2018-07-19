@@ -1,30 +1,35 @@
 import React, { Component } from 'react';
 import { Switch, Route, withRouter } from "react-router-dom";
+import { connect } from 'react-redux';
 import '../App.css';
-import { backendurl } from '../config';
+import LoginRegister from './LoginRegister';
+import HeaderNav from './HeaderNav';
+import Recipes from './Recipes'
+// import { backendurl } from '../config';
 
 class App extends Component {
 
-  handleClick = e => {
-    console.log("button clicked!");
-    e.preventDefault();
-    fetch(backendurl+"/categories")
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-    })
-  }
+  // handleClick = e => {
+  //   console.log("button clicked!");
+  //   e.preventDefault();
+  //   fetch(backendurl+"/categories")
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     console.log(data)
+  //   })
+  // }
 
   render() {
     return (
-      <div>
-        <h4>Welcome to Get Cooking!</h4>
-        <p>
-          <button onClick={this.handleClick}>Test</button>
-        </p>
-      </div>
+      <React.Fragment>   
+        <HeaderNav/>   
+        <Switch>
+          <Route exact path="/" component={LoginRegister} />
+          <Route path="/recipes" component={Recipes} />
+        </Switch>
+      </React.Fragment>
     );
   }
 }
 
-export default App;
+export default withRouter(connect()(App));

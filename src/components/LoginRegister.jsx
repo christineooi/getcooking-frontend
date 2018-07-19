@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Container,Header, Icon, Button, Form } from 'semantic-ui-react';
+import { Container,Header, Button, Form, Divider, Segment } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
 
 class LoginRegister extends Component {
     constructor(props) {
@@ -31,10 +33,6 @@ class LoginRegister extends Component {
         return (
           <React.Fragment>
             <Container text>
-                <Header as='h2' color="olive"> 
-                    <Icon name='food' color="orange"/>
-                    <Header.Content>Get Cooking</Header.Content>
-                </Header>
                 <Container text>
                     <Segment color="teal">
                         <Header >Already a Member? Login</Header>
@@ -61,14 +59,14 @@ class LoginRegister extends Component {
                             />
                         </Form.Field>
                         <Button color="teal" type="submit">
-                            Submit
+                            Login
                         </Button>
                         </Form>
                 </Container>
-                <Divider horizontal>OR</Divider>
+                <Divider></Divider>
                 <Container text>
                     <Segment color="teal">
-                        <Header >New to Get Cooking? Register here!</Header>
+                        <Header >New to Get Cooking? Register Here</Header>
                     </Segment>
                     <Form onSubmit={this.handleRegisterSubmit}>
                     <Form.Field>
@@ -127,7 +125,7 @@ class LoginRegister extends Component {
                         />
                     </Form.Field>
                     <Button color="teal" type="submit">
-                        Submit
+                        Register
                     </Button>
                     </Form>
                 </Container>
@@ -137,3 +135,5 @@ class LoginRegister extends Component {
         );
     }
 }
+
+export default withRouter(connect()(LoginRegister));
