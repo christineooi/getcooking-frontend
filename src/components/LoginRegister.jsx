@@ -91,7 +91,7 @@ class LoginRegister extends Component {
           <React.Fragment>
             {/* <Container text> */}
                 <Container text>
-                    <Segment textAlign='center' color="teal">
+                    <Segment textAlign='center' inverted color="olive">
                         <Header >Already a Member? Login Here</Header>
                     </Segment>
                     <Form onSubmit={this.handleLoginSubmit}> 
@@ -122,7 +122,7 @@ class LoginRegister extends Component {
                 </Container>
                 <Divider> </Divider>
                 <Container text>
-                    <Segment textAlign='center' color="teal">
+                    <Segment textAlign='center' inverted color="orange">
                         <Header >New to Get Cooking? Register Here</Header>
                     </Segment>
                     <Form onSubmit={this.handleRegisterSubmit}>

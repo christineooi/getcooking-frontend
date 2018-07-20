@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import '../App.css';
 import RecipeList from "./RecipeList";
-import { Form, Input, Button} from "semantic-ui-react";
+import { Form, Input, Button, Segment} from "semantic-ui-react";
 
 class Recipes extends Component {
     state = {
@@ -30,10 +30,12 @@ class Recipes extends Component {
     render() {
         return (
             <div>
-                <Form onSubmit={this.getRecipe}>
-                    <Input type="text" id ="searchInput" name="keywordSearch" size="large" placeholder="What do you feel like eating?" focus/>
-                    <Button id="searchBtn" color="orange" size="large">Search</Button>
-                </Form>
+                <Segment inverted color="olive">
+                    <Form onSubmit={this.getRecipe}>
+                        <Input type="text" id ="searchInput" name="keywordSearch" size="large" placeholder="What do you feel like eating?" focus/>
+                        <Button id="searchBtn" color="orange" size="large">Search</Button>
+                    </Form>
+                </Segment>
                 <RecipeList recipes={this.state.recipes} mode={this.state.mode}/>
             </div>
         ) 

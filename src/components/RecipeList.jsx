@@ -18,9 +18,6 @@ class RecipeList extends Component {
       publisher: publisher,
       userid: this.props.user.userid
     }
-    console.log("recipeObj: ", recipeObj);
-    console.log("JSON.stringify(recipeObj): ", JSON.stringify(recipeObj));
-    console.log("JSON.stringify({recipeObj}): ", JSON.stringify({recipeObj}));
     fetch(backendurl+"/saverecipe",
       {
         method: "POST",
