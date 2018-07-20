@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Container,Header, Button, Form, Divider, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
+import { backendurl } from '../config';
+import { loginUser } from '../actions/userActions';
 
 class LoginRegister extends Component {
     constructor(props) {
@@ -23,19 +25,74 @@ class LoginRegister extends Component {
 
     handleLoginSubmit = e => {
         e.preventDefault();
+        const postOptions = {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              email: this.state.loginEmail,
+              password: this.state.loginPwd
+            })
+        };
+        fetch(backendurl+"/login", postOptions)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            if (data.auth) {
+                this.props.dispatch(loginUser(data));
+                console.log(data);
+                this.props.history.push("/userrecipes")        
+            } else {
+                alert("Login Unsuccessful")    
+            }
+        })
+        .catch(err=> console.log(err))
     };
 
     handleRegisterSubmit = e => {
         e.preventDefault();
+        console.log("Inside handle register")
+        const postOptions = {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                firstname: this.state.firstname,
+                lastname: this.state.lastname,
+                email: this.state.email,
+                password: this.state.password
+            })
+        };
+        fetch(backendurl+"/register", postOptions)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.status === "success") {
+                this.setState({ firstname: "",
+                lastname: "",
+                email: "",
+                password: "",
+                confirmPwd: "",
+                loginSuccess: true
+            })}
+        })
+        .then(alert("Successful Registration! Please login"))
+        .catch(e => {
+            console.log(e);
+        });
     };
 
     render() {
         return (
           <React.Fragment>
-            <Container text>
+            {/* <Container text> */}
                 <Container text>
-                    <Segment color="teal">
-                        <Header >Already a Member? Login</Header>
+                    <Segment textAlign='center' color="teal">
+                        <Header >Already a Member? Login Here</Header>
                     </Segment>
                     <Form onSubmit={this.handleLoginSubmit}> 
                         <Form.Field>
@@ -63,9 +120,9 @@ class LoginRegister extends Component {
                         </Button>
                         </Form>
                 </Container>
-                <Divider></Divider>
+                <Divider> </Divider>
                 <Container text>
-                    <Segment color="teal">
+                    <Segment textAlign='center' color="teal">
                         <Header >New to Get Cooking? Register Here</Header>
                     </Segment>
                     <Form onSubmit={this.handleRegisterSubmit}>
@@ -129,11 +186,18 @@ class LoginRegister extends Component {
                     </Button>
                     </Form>
                 </Container>
-                <br />
-            </Container>
+                {/* <br />
+            </Container> */}
           </React.Fragment>
         );
     }
 }
 
-export default withRouter(connect()(LoginRegister));
+const mapStateToProps = (state) => {
+    return {
+        
+        userState: state.userState
+    }
+  }
+
+export default withRouter(connect(mapStateToProps)(LoginRegister));

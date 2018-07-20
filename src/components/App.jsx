@@ -5,7 +5,7 @@ import '../App.css';
 import LoginRegister from './LoginRegister';
 import HeaderNav from './HeaderNav';
 import Recipes from './Recipes'
-// import { backendurl } from '../config';
+import UserRecipes from './UserRecipes';
 
 class App extends Component {
 
@@ -16,10 +16,18 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={LoginRegister} />
           <Route path="/recipes" component={Recipes} />
+          <Route path="/userrecipes" component={UserRecipes} />
         </Switch>
       </React.Fragment>
     );
   }
 }
 
-export default withRouter(connect()(App));
+const mapStateToProps = (state) => {
+  return {
+      token : state.authReducer.token,
+      user : state.authReducer
+  }
+}
+
+export default withRouter(connect(mapStateToProps)(App));
