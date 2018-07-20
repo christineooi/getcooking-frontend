@@ -46,7 +46,7 @@ class UserRecipes extends Component {
                         Your Recipes
                     </Header>
                 </Segment>
-                {/* <RecipeList recipes={this.state.recipes} mode={this.state.mode}/> */}
+                <RecipeList recipes={this.state.recipes} mode={this.state.mode}/>
             </React.Fragment>
         ) 
     }

@@ -61,6 +61,7 @@ class HeaderNav extends Component {
                 <React.Fragment>
                     <Menu.Item
                     name='myrecipes'
+                    as={Link} to={"/userrecipes"}
                     active={activeItem === 'myrecipes'}
                     onClick={this.handleClick}
                     >
