@@ -1,11 +1,13 @@
-import { SAVE_RECIPE, DELETE_RECIPE } from '../config'
+import { SAVE_RECIPE, DELETE_RECIPE, GET_USER_RECIPES } from '../config'
 
 export const recipeState = {
+    id: "",
     image: "",
     source: "",
     title: "",
     publisher: "",
-    userid: ""   
+    userid: "" ,
+    recipes: []  
 }
 
 export const recipeReducer = (state = recipeState, action) => {
@@ -18,8 +20,14 @@ export const recipeReducer = (state = recipeState, action) => {
             newState.publisher = action.payload.publisher;
             newState.userid = action.payload.userid;
             return newState;
+        case GET_USER_RECIPES:
+            return { ...state, 
+                recipes: action.payload
+            };
         case DELETE_RECIPE:
-            return state;
+            return state.recipes.filter(recipe =>
+                recipe.recipe_id !== action.id
+            )
         default: 
             return state;
     }

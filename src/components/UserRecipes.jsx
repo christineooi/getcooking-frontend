@@ -5,6 +5,7 @@ import '../App.css';
 import { Header , Segment} from 'semantic-ui-react';
 import RecipeList from "./RecipeList";
 import { backendurl } from '../config';
+import { getUserRecipes } from '../actions/recipeActions';
 
 class UserRecipes extends Component {
     state = {
@@ -28,6 +29,7 @@ class UserRecipes extends Component {
         .then(response => response.json())
         .then(data => {
             console.log("user recipes: ", data.rows)
+            this.props.dispatch(getUserRecipes(data.rows));
             this.setState({ recipes: data.rows });
         })
         .catch(err=> console.log(err))
@@ -39,14 +41,18 @@ class UserRecipes extends Component {
     }
 
     render() {
+        // console.log("this.state.recipes.length !== 0 : ", this.state.recipes.length !== 0);
         return (
             <React.Fragment>
                 <Segment inverted color="olive">
                     <Header as="h2" textAlign='center' dividing>
-                        Your Recipes
+                        My Recipes
                     </Header>
                 </Segment>
+                <React.Fragment>
                 <RecipeList recipes={this.state.recipes} mode={this.state.mode}/>
+                </React.Fragment> 
+               
             </React.Fragment>
         ) 
     }
@@ -55,7 +61,8 @@ class UserRecipes extends Component {
 const mapStateToProps = (state) => {
     return {
       token: state.authReducer.token,
-      user: state.authReducer
+      user: state.authReducer,
+      recipes: state.recipeReducer.recipes
     }
   }
 

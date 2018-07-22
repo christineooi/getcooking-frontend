@@ -89,7 +89,7 @@ class LoginRegister extends Component {
     render() {
         return (
           <React.Fragment>
-            {/* <Container text> */}
+            <div id="containerDiv">
                 <Container text>
                     <Segment textAlign='center' inverted color="olive">
                         <Header >Already a Member? Login Here</Header>
@@ -186,8 +186,7 @@ class LoginRegister extends Component {
                     </Button>
                     </Form>
                 </Container>
-                {/* <br />
-            </Container> */}
+            </div>
           </React.Fragment>
         );
     }

@@ -2,6 +2,12 @@
   text-align: center;
 }
 
+#containerDiv {
+  background: url('./images/backgroundimg.jpeg') no-repeat center;
+  /* background-repeat: repeat; */
+  background-size: cover;
+}
+
 #searchInput {
   width: 250px;
   margin-left: 10px;
@@ -9,4 +15,22 @@
 
 #searchBtn {
   margin-left: 10px;
+}
+
+.card_group {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+.card {
+  flex-basis: fit-content;
+}
+
+
+#cardDiv {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
 }

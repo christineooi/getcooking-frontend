@@ -13,13 +13,11 @@ class Recipes extends Component {
 
     getRecipe = (e) => {
         const searchKeyword = e.target.elements.keywordSearch.value;
-        console.log("searchKeyword: ", searchKeyword);
         e.preventDefault();
 
         const api_key = process.env.REACT_APP_F2F_API_KEY
-        // let api_key = process.env.NODE_ENV !== 'production' ? process.env.REACT_APP_F2F_API_KEY : process.env.F2F_API_KEY;
-        
-        fetch(`https://cors-anywhere.herokuapp.com/http://food2fork.com/api/search?key=${api_key}&q=${searchKeyword}&sort=r`)
+        // fetch(`https://cors-anywhere.herokuapp.com/http://food2fork.com/api/search?key=${api_key}&q=${searchKeyword}&sort=r`)
+        fetch(`https://cryptic-headland-94862.herokuapp.com/http://food2fork.com/api/search?key=${api_key}&q=${searchKeyword}&sort=r`)
         .then(response => response.json())
         .then(data => {
             console.log(data.recipes)

@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { Segment, Card, Image, Button } from "semantic-ui-react";
 import { backendurl } from "../config";
-import { saveRecipe } from "../actions/recipeActions";
+import { saveRecipe, deleteRecipe } from "../actions/recipeActions";
+import '../App.css';
 
 class RecipeList extends Component {
 
 
   handleSave = (image, source, title, publisher) => (e) => {
-    console.log("in handleSave")
     e.preventDefault();
     const recipeObj = {
       image: image,
@@ -31,7 +31,7 @@ class RecipeList extends Component {
     )
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        // console.log(data);
         if (data.status === "success") {
           this.props.dispatch(saveRecipe(recipeObj));
           this.props.history.push("/recipes");
@@ -46,26 +46,47 @@ class RecipeList extends Component {
   }
 
   handleDelete = (id) => (e) => {
-    console.log("in handleDelete")
     e.preventDefault();
+    fetch(backendurl+"/removerecipe/"+id,
+      {
+        method: "DELETE",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + this.props.token 
+        }
+      }
+    )
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data);
+        if (data.status === "success") {
+          this.props.dispatch(deleteRecipe(id));
+          this.props.history.push("/recipes");
+          this.props.history.push("/userrecipes");
+        }
+    })
+    .catch(e => {
+            console.log(e);
+    }); 
   }
 
   render() {
-    console.log("this.props.user.userid: ", this.props.user.userid);
     
     return (
       <React.Fragment>
         <Segment>
-          <Card.Group centered itemsPerRow={6}>
+          <Card.Group className="card_group" centered>
           { this.props.recipes.map((recipe) => {
             return (
-              <Card>
-                <div key={recipe.recipe_id}>
-                <Image src={recipe.image_url} />
+              <div key={recipe.title} id="cardDiv">
+              <Card className="card">             
+                <Image src={recipe.image_url} fluid/>
                 <Card.Content>
                   <Card.Header><a href={recipe.source_url} target='_blank'> { recipe.title.length < 20 ? `${recipe.title}` : `${recipe.title.substring(0, 25)}...` }</a></Card.Header>
                   <Card.Description>{ recipe.publisher }</Card.Description>
                 </Card.Content>
+                {this.props.token &&
                 <Card.Content extra>
                   {this.props.token && (this.props.mode==='public') &&
                   <React.Fragment>
@@ -77,13 +98,13 @@ class RecipeList extends Component {
                   {this.props.token && (this.props.mode==='private') &&
                   <React.Fragment>
                   <br/>
-                  <Button color='teal' onClick={ this.handleDelete(this.props.user.userid) } compact>
+                  <Button color='teal' onClick={ this.handleDelete(recipe.recipe_id) } compact>
                     Remove Recipe
                   </Button>
                   </React.Fragment>}
-                </Card.Content>
-                </div>
-              </Card>  
+                </Card.Content>}              
+              </Card> 
+              </div>
             );
           })}
           </Card.Group>
